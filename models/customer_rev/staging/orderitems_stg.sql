@@ -1,7 +1,4 @@
-{{ config(
-    schema='L1_LANDING',
-    materialized='view'
-) }}
+
 
 SELECT 
 	ORDERID,

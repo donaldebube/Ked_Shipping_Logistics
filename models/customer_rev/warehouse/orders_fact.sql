@@ -4,10 +4,7 @@ revenue and order counts acrross multiple dimensions. While this project require
 aggregates only at the customer level, it is also necessary to create aggregates
 at other levels to accomodate potential future enhancements
 */
-{{ config(
-    schema='L1_LANDING',
-    materialized='table'
-) }}
+
 
 select
     orders.orderid,

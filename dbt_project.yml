@@ -42,11 +42,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 #       +materialized: table
 
 models:
-  my_new_project:
-    +schema: L1_LANDING
-    
-    staging:
-      +materialized: view
+  Ked_Shipping_Logistics:
     
     customer_rev:
-      +materialized: table
+      staging:
+        +schema: L1_LANDING
+        +materialized: view
+      
+      analytics:
+        +schema: L1_LANDING
+        +materialized: table
+      
+      warehouse:
+        +schema: L1_LANDING
+        +materialized: table
+
