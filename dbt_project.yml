@@ -47,7 +47,7 @@ models:
 
       staging:
         +schema: L1_LANDING
-        +materialized: table
+        +materialized: view
       
       analytics_obt:
         +schema: L1_LANDING

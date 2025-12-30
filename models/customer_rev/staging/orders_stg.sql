@@ -17,7 +17,6 @@ WITH source_orders AS (
             else null
         end as status_description,
         case when storeid = 1000 then 'ONLINE' else 'IN-STORE' end as order_channel,
-        current_timestamp as dbt_updated_at
     from {{ source("landing", "orders") }}
 )
 
