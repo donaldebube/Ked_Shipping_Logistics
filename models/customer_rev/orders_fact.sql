@@ -4,20 +4,23 @@ revenue and order counts acrross multiple dimensions. While this project require
 aggregates only at the customer level, it is also necessary to create aggregates
 at other levels to accomodate potential future enhancements
 */
+{{ config(
+    schema='L1_LANDING',
+    materialized='table'
+) }}
 
-SELECT 
-    orders.ORDERID,
-    orders.ORDERDATE,
-	orders.CUSTOMERID,
-	orders.EMPLOYEEID,
-    orders.STOREID,
-    orders.statu
-    orders.STATUS_DESCRIPTION,
-    COUNT(DISTINCT orders.ORDERID) AS ORDER_COUNT,
-    SUM(orderitems.TOTALPRICE) AS REVENUE,
-	orders.UPDATED_AT,
-
-FROM {{ ref('orders_stg') }} AS orders
-INNER JOIN {{ ref('orderitems_stg')}} AS orderitems
-    ON orders.ORDERID = orderitems.ORDERID
-GROUP BY 1,2,3,4,5,6
+select
+    orders.orderid,
+    orders.orderdate,
+    orders.customerid,
+    orders.employeeid,
+    orders.storeid,
+    orders.statuscd,
+    orders.status_description,
+    count(distinct orders.orderid) as order_count,
+    sum(orderitems.totalprice) as revenue,
+    orders.updated_at
+from {{ ref('orders_stg') }} as orders
+join {{ ref('orderitems_stg') }} as orderitems 
+    on orders.orderid = orderitems.orderid
+group by 1, 2, 3, 4, 5, 6, 7, 10
