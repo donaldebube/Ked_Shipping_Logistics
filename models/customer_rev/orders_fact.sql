@@ -11,13 +11,12 @@ SELECT
 	orders.CUSTOMERID,
 	orders.EMPLOYEEID,
     orders.STOREID,
-    orders.statu
+    orders.STATUSCD,
     orders.STATUS_DESCRIPTION,
     COUNT(DISTINCT orders.ORDERID) AS ORDER_COUNT,
     SUM(orderitems.TOTALPRICE) AS REVENUE,
 	orders.UPDATED_AT,
-
 FROM {{ ref('orders_stg') }} AS orders
 INNER JOIN {{ ref('orderitems_stg')}} AS orderitems
     ON orders.ORDERID = orderitems.ORDERID
-GROUP BY 1,2,3,4,5,6
+GROUP BY 1,2,3,4,5,6,7
