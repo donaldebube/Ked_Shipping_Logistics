@@ -1,4 +1,4 @@
--- {{ config(materialized = 'table') }}
+
 
 /*
 Note that these basic table level transformations are handled within the staging model:
@@ -7,11 +7,6 @@ Note that these basic table level transformations are handled within the staging
 3.)Combining fields
 
 */
-
-{{ config(
-    schema='L1_LANDING',
-    materialized='view'
-) }}
 
 SELECT 
     CUSTOMERID,

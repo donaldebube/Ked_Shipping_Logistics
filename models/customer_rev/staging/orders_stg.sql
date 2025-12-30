@@ -1,25 +1,21 @@
-{{ config(
-    schema='L1_LANDING',
-    materialized='view'
-) }}
 
-SELECT 
-    ORDERID,
-	ORDERDATE,
-	CUSTOMERID,
-	EMPLOYEEID,
-	STOREID,
-	STATUS AS STATUSCD,
-	UPDATED_AT,
-    CASE 
-        WHEN STATUS = '01' THEN 'IN PROGRESS'
-        WHEN STATUS = '02' THEN 'COMPLETED'
-        WHEN STATUS = '03' THEN 'CANCELLED'
-        ELSE null
-    END AS STATUS_DESCRIPTION,
-    CASE 
-        WHEN STOREID = 1000 THEN 'ONLINE'
-        ELSE 'IN-STORE'
-    END AS ORDER_CHANNEL,
-    current_timestamp AS dbt_updated_at
-FROM {{ source("landing", "orders")}}
+select
+    orderid,
+    orderdate,
+    customerid,
+    employeeid,
+    storeid,
+    status as statuscd,
+    updated_at,
+    case
+        when status = '01'
+        then 'IN PROGRESS'
+        when status = '02'
+        then 'COMPLETED'
+        when status = '03'
+        then 'CANCELLED'
+        else null
+    end as status_description,
+    case when storeid = 1000 then 'ONLINE' else 'IN-STORE' end as order_channel,
+    current_timestamp as dbt_updated_at
+from {{ source("landing", "orders") }}
